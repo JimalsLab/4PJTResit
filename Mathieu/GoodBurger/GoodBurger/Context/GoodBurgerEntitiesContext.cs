@@ -12,20 +12,20 @@ namespace GoodBurger.Context
 
     public partial class GoodBurgerEntitiesContext : DbContext
     {
-
+        string password = "";
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=tcp:goodburger.database.windows.net,1433;Initial Catalog=GoodBurgerDB;Persist Security Info=False;User ID=supinfo;Password=Mathieu1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            optionsBuilder.UseSqlServer("Server=tcp:goodburger.database.windows.net,1433;Initial Catalog=GoodBurgerDB;Persist Security Info=False;User ID=supinfo;Password={};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Burger> Burgers { get; set; }
-        public DbSet<Cart> Carts { get; set; }
-        public DbSet<Menu> Menus { get; set; }
+        public DbSet<Users> User { get; set; }
+        public DbSet<Burgers> Burger { get; set; }
+        public DbSet<Carts> Cart { get; set; }
+        public DbSet<Menus> Menu { get; set; }
 
     }
 
-    public class User
+    public class Users
     {
         public int Id { get; set; }
         public string Username { get; set; }
@@ -35,7 +35,7 @@ namespace GoodBurger.Context
         public int IsAdmin { get; set; }
     }
 
-    public class Burger
+    public class Burgers
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -45,13 +45,13 @@ namespace GoodBurger.Context
         public int IdCart { get; set; }
     }
 
-    public class Cart
+    public class Carts
     {
         public int Id { get; set; }
         public string IdUser { get; set; }
     }
 
-    public class Menu
+    public class Menus
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -11,11 +11,11 @@ namespace GoodBurger.Services
     public class DataRetrievalService
     {
 
-        public List<User> GetUsers()
+        public List<Users> GetUsers()
         {
             using (var db = new GoodBurgerEntitiesContext())
             {
-                return db.Users.ToList();
+                return db.User.ToList();
             }
         }
     }
