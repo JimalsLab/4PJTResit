@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,15 @@ using System.Threading.Tasks;
 
 namespace GoodBurger.Context
 {
-
+    
 
     public partial class GoodBurgerEntitiesContext : DbContext
     {
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=tcp:goodburger.database.windows.net,1433;Initial Catalog=GoodBurgerDB;Persist Security Info=False;User ID=supinfo;Password=Mathieu1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+        }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Burger> Burgers { get; set; }

@@ -18,11 +18,18 @@ namespace GoodBurger.Controllers
         {
             service = new DataRetrievalService();
         }
+
         // GET: api/DataRetrieval
         [HttpGet]
         public IEnumerable<string> Get()
         {
             //exemple
+            return new string[] { "a", "b" };
+        }
+
+        [HttpGet("[action]")]
+        public IEnumerable<string> GetNames()
+        {
             var result = service.GetUsers().Where(x => x.Id >= 1).ToList();
             return new string[] { result[0].Name, result[1].Name };
         }
