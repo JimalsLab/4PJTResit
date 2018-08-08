@@ -22,7 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\components\ShowUsers.tsx" />
+    <None Remove="ClientApp\components\Cart.tsx" />
+    <None Remove="ClientApp\components\Profile.tsx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,7 +46,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\components\ShowUsers.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Cart.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Profile.tsx" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

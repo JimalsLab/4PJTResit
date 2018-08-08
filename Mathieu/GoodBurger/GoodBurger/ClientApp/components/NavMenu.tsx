@@ -15,12 +15,12 @@ export class NavMenu extends React.Component<{}, {}> {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to={'/'} exact activeClassName='active'>
+                        <NavLink to={'/Cart'} exact activeClassName='active'>
                             <span className='glyphicon glyphicon-shopping-cart'></span> Cart
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to={'/'} exact activeClassName='active'>
+                        <NavLink to={'/Profile'} exact activeClassName='active'>
                             <span className='glyphicon glyphicon-user'></span> Account
                         </NavLink>
                     </li>

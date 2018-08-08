@@ -7,11 +7,11 @@ interface UserData {
     loading: boolean;
 }
 
-export class ShowUsers extends React.Component<RouteComponentProps<{}>, UserData>
+export class Profile extends React.Component<RouteComponentProps<{}>, UserData>
 {
     constructor() {
         super();
-        this.state = {data: [""], loading: true };
+        this.state = { data: [""], loading: true };
 
         fetch('api/DataRetrieval/GetNames')
             .then(response => response.json() as Promise<string[]>)
@@ -21,11 +21,8 @@ export class ShowUsers extends React.Component<RouteComponentProps<{}>, UserData
     }
 
     public render() {
-        return  <ul> 
-                    <li>{this.state.data[0]}</li>
-                    <li>{this.state.data[1]}</li>
-                </ul> 
+        return <h4> Profile Page </h4>
     }
 
-    
+
 }
