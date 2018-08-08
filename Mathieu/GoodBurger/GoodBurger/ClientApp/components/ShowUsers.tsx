@@ -21,9 +21,9 @@ export class ShowUsers extends React.Component<RouteComponentProps<{}>, UserData
     }
 
     public render() {
-        return  <ul>
-                    <li>this.state.data[0]</li>
-                    <li>this.state.data[1]</li>
+        return  <ul> 
+                    <li>{this.state.data[0]}</li>
+                    <li>{this.state.data[1]}</li>
                 </ul> 
     }
 
