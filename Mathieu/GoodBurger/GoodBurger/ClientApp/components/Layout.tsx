@@ -11,7 +11,7 @@ export class Layout extends React.Component<LayoutProps, {}> {
             <div className='row'>
                 <NavMenu />
             </div>
-            <div className='row custom_content content'>
+            <div>
                 {this.props.children}
             </div>
         </div>;
