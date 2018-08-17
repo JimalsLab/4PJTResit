@@ -12,7 +12,7 @@ namespace GoodBurger.Context
 
     public partial class GoodBurgerEntitiesContext : DbContext
     {
-        string password = "s";
+        string password = "y";
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=tcp:goodburger.database.windows.net,1433;Initial Catalog=GoodBurgerDB;Persist Security Info=False;User ID=supinfo;Password="+password+";MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");

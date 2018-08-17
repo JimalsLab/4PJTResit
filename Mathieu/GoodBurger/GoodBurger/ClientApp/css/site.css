@@ -1,3 +1,7 @@
+div {
+    overflow: hidden;
+}
+
 .noborder {
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
@@ -95,8 +99,9 @@ body {
 }
 
 .tile{
-    background-color:lightgray;
+    background-color:white;
     margin:20px;
+    color:black;
 }
 
 .tileheight{
@@ -134,8 +139,7 @@ body {
     color: white;
     font-size: 64px;
     font-stretch: extra-expanded;
-    -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
-    filter: blur(5px);
+    filter:saturate(1.8);
 }
 
 .description_text{
@@ -148,4 +152,17 @@ body {
     filter:unset;
     margin-top: 60px;
     text-decoration-line: overline underline;
+}
+
+.tile:hover {
+    cursor: pointer;
+    font-size: 70px;
+    filter:saturate(3);
+    background-color:lightcoral;
+    color:white;
+}
+
+.minitile{
+    font-size:64px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
