@@ -34,6 +34,13 @@ namespace GoodBurger.Controllers
             return new string[] { result[0].Name, result[1].Name };
         }
 
+        [HttpGet("[action]")]
+        public IEnumerable<Burgers> GetProducts()
+        {
+            var result = service.GetProducts();
+            return result;
+        }
+
         // GET: api/DataRetrieval/5
         [HttpGet("{id}", Name = "Get")]
         public string Get(int id)

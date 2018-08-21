@@ -18,5 +18,13 @@ namespace GoodBurger.Services
                 return db.User.ToList();
             }
         }
+
+        public List<Burgers> GetProducts()
+        {
+            using (var db = new GoodBurgerEntitiesContext())
+            {
+                return db.Burger.Where(x=>x.Type !="Menu" && x.OnCart == 0).ToList();
+            }
+        }
     }
 }
