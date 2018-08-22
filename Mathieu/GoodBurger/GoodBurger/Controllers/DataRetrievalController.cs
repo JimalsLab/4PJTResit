@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using GoodBurger.Context;
@@ -35,10 +36,12 @@ namespace GoodBurger.Controllers
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<Burgers> GetProducts()
+        public Object GetProducts()
         {
-            var result = service.GetProducts();
-            return result;
+            List<Burgers> result = service.GetProducts().Where(x => x.Type != "Menu" && x.OnCart == 0).ToList();
+            JsonResult ret = Json(result);
+            Debug.Print(ret.Value.ToString());
+            return ret.Value;
         }
 
         // GET: api/DataRetrieval/5

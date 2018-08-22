@@ -23,7 +23,7 @@ namespace GoodBurger.Services
         {
             using (var db = new GoodBurgerEntitiesContext())
             {
-                return db.Burger.Where(x=>x.Type !="Menu" && x.OnCart == 0).ToList();
+                return db.Burger.ToList();
             }
         }
     }

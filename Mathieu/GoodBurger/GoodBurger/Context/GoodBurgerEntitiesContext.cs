@@ -12,7 +12,7 @@ namespace GoodBurger.Context
 
     public partial class GoodBurgerEntitiesContext : DbContext
     {
-        string password = "y";
+        string password = "a";
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=tcp:goodburger.database.windows.net,1433;Initial Catalog=GoodBurgerDB;Persist Security Info=False;User ID=supinfo;Password="+password+";MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
@@ -39,10 +39,16 @@ namespace GoodBurger.Context
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Price { get; set; }
+        public int Price { get; set; }
         public string Picture { get; set; }
-        public string Number { get; set; }
+        public int Number { get; set; }
         public int IdCart { get; set; }
+        public string Type { get; set; }
+        public string Children { get; set; }
+        public string Description { get; set; }
+        public string Components { get; set; }
+        public int OnCart { get; set; }
+
     }
 
     public class Carts
