@@ -5,6 +5,7 @@ import 'isomorphic-fetch';
 interface ProductData {
     data: Products[];
     loading: boolean;
+
 }
 
 export class Items extends React.Component<RouteComponentProps<{}>, ProductData>
@@ -22,21 +23,19 @@ export class Items extends React.Component<RouteComponentProps<{}>, ProductData>
 
     public render() {
         
-        let contents = this.state.loading
+        let itemlist = this.state.loading
             ? <p><em>Loading...</em></p>
-            : <p>{this.state.data[0].Name}</p>
+            : <ul>{
+                this.state.data.map(item =>
+                    <li>{item.Name}</li>
+                )
+            }</ul>
 
         return <div>
             <h1>All Products</h1>
-            {contents}
-            <ul>
-                {this.state.data.map(item =>
-                    <li key={item.Id}> { item.Name }</li>
-            )}
-            </ul>
+            {itemlist}
         </div>;
     }
-
 }
 
 interface Products {

@@ -36,12 +36,10 @@ namespace GoodBurger.Controllers
         }
 
         [HttpGet("[action]")]
-        public Object GetProducts()
+        public List<Burgers> GetProducts()
         {
             List<Burgers> result = service.GetProducts().Where(x => x.Type != "Menu" && x.OnCart == 0).ToList();
-            JsonResult ret = Json(result);
-            Debug.Print(ret.Value.ToString());
-            return ret.Value;
+            return result;
         }
 
         // GET: api/DataRetrieval/5
