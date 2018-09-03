@@ -15,7 +15,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, {}> {
             <h2 className="row text-center"> GoodBurger : Mixing Complex and Subtle Tasty Burgers with Simple food delivery ! </h2>
             <br />
             <NavLink to={'/Cart'}>
-                <div className="row tile tileheight featured_banner text-center">
+                <div className="row tile tileheight featured_banner text-center tilettl">
                     <p className="featured_title">Featured</p>
                     <p className="description_text">*A weekly refreshed list of our suggestions !</p>
                 </div>
@@ -23,7 +23,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, {}> {
             <div>
                 <div className="col-md-6">
                     <NavLink to={'/Cart'}>
-                        <div className="tile tileheight minitile">
+                        <div className="tile tileheight minitile tilettl">
                             <div className="col-md-5">
                                 <img src="./img/MenuIcon.png" className="display_block" />
                             </div>
@@ -36,7 +36,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, {}> {
                 </div>
                 <div className="col-md-6">
                     <NavLink to={'/Items'}>
-                        <div className="tile tileheight minitile">
+                        <div className="tile tileheight minitile tilettl">
                             <div className="col-md-5">
                                 <img src="./img/ALaCarteIcon.png" className="display_block" />
                             </div>

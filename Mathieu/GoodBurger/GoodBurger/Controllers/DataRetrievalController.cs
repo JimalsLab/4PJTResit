@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GoodBurger.Context;
 using GoodBurger.Services;
+using GoodBurger.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,6 +40,13 @@ namespace GoodBurger.Controllers
         public List<Burgers> GetProducts()
         {
             List<Burgers> result = service.GetProducts().Where(x => x.Type != "Menu" && x.OnCart == 0).ToList();
+            return result;
+        }
+
+        [HttpGet("/Item/{id}")]
+        public Burgers Item(string id)
+        {
+            var result = service.GetProducts().Where(x => x.Id == int.Parse(id)).FirstOrDefault();
             return result;
         }
 
