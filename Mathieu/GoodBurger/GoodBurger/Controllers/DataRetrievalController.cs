@@ -39,7 +39,7 @@ namespace GoodBurger.Controllers
         [HttpGet("[action]")]
         public List<Burgers> GetProducts()
         {
-            List<Burgers> result = service.GetProducts().Where(x => x.Type != "Menu" && x.OnCart == 0).ToList();
+            List<Burgers> result = service.GetProducts().Where(x => x.Type != "Menu" && x.IdCart == -1).ToList();
             return result;
         }
 

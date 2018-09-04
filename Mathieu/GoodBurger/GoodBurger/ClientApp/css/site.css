@@ -176,3 +176,15 @@ body {
 .smallfont{
     font-size:52px;
 }
+
+.paddingleft{
+    padding-left:20px;
+}
+
+.redclass{
+    color:red;
+}
+
+.greenclass{
+    color:green;
+}

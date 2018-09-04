@@ -47,7 +47,7 @@ namespace GoodBurger.Context
         public string Children { get; set; }
         public string Description { get; set; }
         public string Components { get; set; }
-        public int OnCart { get; set; }
+        public string Cities { get; set; }
 
     }
 
