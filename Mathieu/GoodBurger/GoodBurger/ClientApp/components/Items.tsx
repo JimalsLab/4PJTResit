@@ -7,11 +7,11 @@ import 'isomorphic-fetch';
 interface ProductData {
     data: Burgers[];
     loading: boolean;
-
 }
 
 export class Items extends React.Component<RouteComponentProps<{}>, ProductData>
 {
+
     constructor() {
         super();
         this.state = { data: [], loading: true };
@@ -73,6 +73,17 @@ export class Items extends React.Component<RouteComponentProps<{}>, ProductData>
                                                     )}
                                                 </ul>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div className="row" ref="errordiv"></div>
+                                    <div className="modal-footer">
+                                        <div className="input-group">
+                                            <form action="/api/DataRetrieval/AddToCart">
+                                                <input id="stock" name="stock" value={forecast.number} hidden/>
+                                                <input id="itemid" name="itemid" value={forecast.id} hidden/>
+                                                <input ref="productnb" name="productnb" type="text" className="form-control display_block small_input " value="1" placeholder="Nb" aria-label="Recipient's username" aria-describedby="basic-addon2" id="productnb" />
+                                                <button className="btn btn-danger display_block" type="submit">Add To Cart</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -162,6 +173,14 @@ export class Items extends React.Component<RouteComponentProps<{}>, ProductData>
         return <div>
             {itemlist}
         </div>;
+    }
+
+    public static rendererror() {
+        var div = document.createElement('div');
+        div.className = 'row';
+        div.innerHTML = 
+            '<p>erreur!</p>';
+        return div;
     }
 
 }

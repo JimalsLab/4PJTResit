@@ -37,12 +37,12 @@ namespace GoodBurger.Context
 
     public class Burgers
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Name { get; set; }
-        public int Price { get; set; }
+        public int? Price { get; set; }
         public string Picture { get; set; }
-        public int Number { get; set; }
-        public int IdCart { get; set; }
+        public int? Number { get; set; }
+        public int? IdCart { get; set; }
         public string Type { get; set; }
         public string Children { get; set; }
         public string Description { get; set; }

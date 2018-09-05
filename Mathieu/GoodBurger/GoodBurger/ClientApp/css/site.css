@@ -188,3 +188,11 @@ body {
 .greenclass{
     color:green;
 }
+
+.small_input{
+    width:45px;
+    max-width:45px;
+    border-radius:4px !important;
+    margin-right:5px;
+    right:auto;
+}

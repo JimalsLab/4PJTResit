@@ -26,5 +26,22 @@ namespace GoodBurger.Services
                 return db.Burger.ToList();
             }
         }
+
+        public bool AddProductToBasket(Burgers b)
+        {
+            using (var db = new GoodBurgerEntitiesContext())
+            {
+                try
+                {
+                    db.Burger.Add(b);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
     }
 }
