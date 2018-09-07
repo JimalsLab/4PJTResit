@@ -58,7 +58,9 @@ namespace GoodBurger.Controllers
                 b.Price = original.Price;
                 b.Children = original.Children;
                 b.Components = original.Components;
+
                 return "items added to cart";
+
             }
         }
 
