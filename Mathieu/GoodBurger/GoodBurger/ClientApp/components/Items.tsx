@@ -16,7 +16,7 @@ export class Items extends React.Component<RouteComponentProps<{}>, ProductData>
         super();
         this.state = { data: [], loading: true };
 
-        fetch('api/DataRetrieval/GetProducts')
+        fetch('DataRetrieval/GetProducts')
             .then(response => response.json() as Promise<Burgers[]>)
             .then(data => {
                 this.setState({ data: data, loading: false });
@@ -41,7 +41,7 @@ export class Items extends React.Component<RouteComponentProps<{}>, ProductData>
 
                                     <h5>{forecast.description}
                                     </h5>
-                                    <h5>Price : {forecast.price}</h5>
+                                    <h5>Price : {forecast.price}$</h5>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@ export class Items extends React.Component<RouteComponentProps<{}>, ProductData>
                                         <div className="row paddingleft">
                                             <div className="col-md-4">
                                                 <br />
-                                                <p>Price: {forecast.price}</p>
+                                                <p>Price: {forecast.price} $</p>
                                                 <p>In Stock: {forecast.number}</p>
                                                 <p className={this.quantityinfostatus((forecast.number).toString())}>{this.quantityinfo((forecast.number).toString())}</p>
                                             </div>
@@ -75,13 +75,13 @@ export class Items extends React.Component<RouteComponentProps<{}>, ProductData>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="row" ref="errordiv"></div>
+                                    <div className="row" id="errordiv"></div>
                                     <div className="modal-footer">
                                         <div className="input-group">
-                                            <form action="/api/DataRetrieval/AddToCart">
+                                            <form id="addtocart" action="/DataRetrieval/Items">
                                                 <input id="stock" name="stock" value={forecast.number} hidden/>
                                                 <input id="itemid" name="itemid" value={forecast.id} hidden/>
-                                                <input ref="productnb" name="productnb" type="text" className="form-control display_block small_input " value="1" placeholder="Nb" aria-label="Recipient's username" aria-describedby="basic-addon2" id="productnb" />
+                                                <input ref="productnb" name="productnb" type="text" className="form-control display_block small_input " placeholder="Nb" aria-label="Recipient's username" aria-describedby="basic-addon2" id="productnb" />
                                                 <button className="btn btn-danger display_block" type="submit">Add To Cart</button>
                                             </form>
                                         </div>

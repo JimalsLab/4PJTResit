@@ -196,3 +196,32 @@ body {
     margin-right:5px;
     right:auto;
 }
+
+.error_tile{
+    color:red;
+}
+
+.red{
+    color:red;
+}
+
+.green{
+    color:green;
+}
+
+.coralbutton{
+    background-color:lightcoral;
+    border-color:lightcoral;
+}
+
+.coralbuttonsecond{
+    color:lightcoral;
+}
+
+.coralbutton:hover {
+    background-color: #a85959;
+}
+
+.coralbuttonsecond:hover {
+    color: #a85959;
+}

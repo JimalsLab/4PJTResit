@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GoodBurger.Controllers
 {
-    [Route("api/DataRetrieval")]
+    [Route("DataRetrieval")]
     public class DataRetrievalController : Controller
     {
         private DataRetrievalService service;
@@ -44,24 +44,83 @@ namespace GoodBurger.Controllers
         }
 
         [HttpGet("[action]")]
-        public string AddToCart(ProductToCart data)
+        public IActionResult Items(string stock, string itemid, string productnb)
         {
-            if (int.Parse(data.productnb) > int.Parse(data.stock))
+            if (productnb == null) { productnb = "1"; }
+            Burgers burger = service.GetProducts().Where(x => x.Id == int.Parse(itemid)).FirstOrDefault();
+            CartValidViewModel cvvm = new CartValidViewModel
             {
-                return "Item out of stock for this value";
+                Cities = burger.Cities,
+                Components = burger.Components,
+                Description = burger.Description,
+                HowMany = int.Parse(productnb),
+                Id = burger.Id,
+                IdCart = burger.IdCart,
+                Name = burger.Name,
+                Number = burger.Number,
+                Picture = burger.Picture,
+                Price = burger.Price,
+                Type = burger.Type,
+                Stock = int.Parse(stock)
+            };
+
+            if (int.Parse(productnb) > int.Parse(stock))
+            {
+                cvvm.message = "Oops, we are short on stock for this object !";
+                cvvm.Colorstate = "red";
             }
             else
             {
-                Burgers b = new Burgers();
-                Burgers original = service.GetProducts().Where(x => x.Id == int.Parse(data.itemid)).FirstOrDefault();
-                b.Name = original.Name;
-                b.Price = original.Price;
-                b.Children = original.Children;
-                b.Components = original.Components;
+                Burgers b = new Burgers
+                {
+                    Name = burger.Name,
+                    Price = burger.Price,
+                    Children = burger.Children,
+                    Components = burger.Components,
+                    IdCart = service.GetCartIdByGuid(Request.Cookies["sessionCookie"]),
+                    Number = int.Parse(productnb),
+                    Picture = burger.Picture,
+                    Cities = burger.Cities,
+                    Description = burger.Description,
+                    Type = burger.Type       
+                };
 
-                return "items added to cart";
+                bool error = service.AddProductToBasket(b);
+                
+                //+ add to cart (or create new cart)
+                //+save to db +cart saved to db if new cart
+                if (error)
+                {
+                    cvvm.message = "Oops, something broke, try again later !";
+                    cvvm.Colorstate = "red";
+                }
+                if (cvvm.HowMany == 1)
+                {
+                    cvvm.message = "Item added to cart";
+                    cvvm.Colorstate = "green";
+                }
+                else if (cvvm.HowMany == 0)
+                {
+                    cvvm.message = "No items added to cart";
+                }
+                else
+                {
+                    cvvm.message = "Items added to cart";
+                    cvvm.Colorstate = "green";
+                }
+
 
             }
+
+            return View("CartInfo",cvvm);
+        }
+
+        [HttpGet("[action]")]
+        public List<Burgers> CartItems()
+        {
+            int idCart = service.GetCartIdByGuid(Request.Cookies["sessionCookie"]);
+            var result = service.GetItemsInCart(idCart);
+            return result;
         }
 
         [HttpGet("/Item/{id}")]
@@ -95,13 +154,6 @@ namespace GoodBurger.Controllers
         public void Delete(int id)
         {
 
-        }
-
-        public class ProductToCart
-        {
-            public string stock { get; set; }
-            public string itemid { get; set; }
-            public string productnb { get; set; }
         }
     }
 }

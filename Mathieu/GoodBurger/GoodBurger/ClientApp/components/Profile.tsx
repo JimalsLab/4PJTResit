@@ -13,7 +13,7 @@ export class Profile extends React.Component<RouteComponentProps<{}>, UserData>
         super();
         this.state = { data: [""], loading: true };
 
-        fetch('api/DataRetrieval/GetNames')
+        fetch('DataRetrieval/GetNames')
             .then(response => response.json() as Promise<string[]>)
             .then(data => {
                 this.setState({ data: data, loading: false });

@@ -2,30 +2,50 @@
 import { RouteComponentProps } from 'react-router';
 import 'isomorphic-fetch';
 
-interface UserData {
-    data: string[];
+interface ProductData {
+    data: Burgers[];
     loading: boolean;
 }
 
-export class Cart extends React.Component<RouteComponentProps<{}>, UserData>
+export class Cart extends React.Component<RouteComponentProps<{}>, ProductData>
 {
     constructor() {
         super();
-        this.state = { data: [""], loading: true };
+        this.state = { data: [], loading: true };
 
-        fetch('api/DataRetrieval/GetNames')
-            .then(response => response.json() as Promise<string[]>)
+        fetch('DataRetrieval/CartItems')
+            .then(response => response.json() as Promise<Burgers[]>)
             .then(data => {
                 this.setState({ data: data, loading: false });
             });
     }
 
     public render() {
-        return <ul>
-            <li>{this.state.data[0]}</li>
-            <li>{this.state.data[1]}</li>
-        </ul>
+
+        let itemlist = this.state.loading
+            ? <p><em>Loading...</em></p>
+            : Cart.renderTable(this.state.data);
+
+
+
+        return <div>
+            {itemlist}
+        </div>;
     }
 
+    public static renderTable()
+}
 
+interface Burgers {
+    id: number;
+    name: string;
+    price: number;
+    picture: string;
+    number: number;
+    idcart: number;
+    type: string;
+    children: string;
+    description: string;
+    components: string;
+    cities: number;
 }

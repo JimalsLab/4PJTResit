@@ -20,7 +20,7 @@ export class ItemDescription extends React.Component<RouteComponentProps<{}>, Pr
         if (index > 0)
             url = url.substring(0, index + 1);
         const handle = this.props.match.params;
-        fetch('api/DataRetrieval/Item/2')
+        fetch('DataRetrieval/Item/2')
             .then(response => response.json() as Promise<Burgers>)
             .then(data => {
                 this.setState({ data: data, loading: false });

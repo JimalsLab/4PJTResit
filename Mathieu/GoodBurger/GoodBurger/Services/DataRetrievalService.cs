@@ -10,7 +10,7 @@ namespace GoodBurger.Services
 {
     public class DataRetrievalService
     {
-
+        #region get
         public List<Users> GetUsers()
         {
             using (var db = new GoodBurgerEntitiesContext())
@@ -27,6 +27,25 @@ namespace GoodBurger.Services
             }
         }
 
+        public int GetCartIdByGuid(string guid)
+        {
+            using (var db = new GoodBurgerEntitiesContext())
+            {
+                return db.Cart.Where(cart => cart.Guid == guid).FirstOrDefault().Id;
+            }
+        }
+
+        public List<Burgers> GetItemsInCart(int id)
+        {
+            using (var db = new GoodBurgerEntitiesContext())
+            {
+                return db.Burger.Where(burger => burger.IdCart == id).ToList();
+            }
+        }
+
+        #endregion
+
+        #region post
         public bool AddProductToBasket(Burgers b)
         {
             using (var db = new GoodBurgerEntitiesContext())
@@ -43,5 +62,23 @@ namespace GoodBurger.Services
                 }
             }
         }
+
+        public bool CreateCart(Carts c)
+        {
+            using (var db = new GoodBurgerEntitiesContext())
+            {
+                try
+                {
+                    db.Cart.Add(c);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+        #endregion
     }
 }

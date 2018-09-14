@@ -55,6 +55,7 @@ namespace GoodBurger.Context
     {
         public int Id { get; set; }
         public string IdUser { get; set; }
+        public string Guid { get; set; }
     }
 
     public class Menus
