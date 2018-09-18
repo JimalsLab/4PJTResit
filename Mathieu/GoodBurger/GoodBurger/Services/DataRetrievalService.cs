@@ -63,6 +63,23 @@ namespace GoodBurger.Services
             }
         }
 
+        public int AddUser(Users u)
+        {
+            using (var db = new GoodBurgerEntitiesContext())
+            {
+                try
+                {
+                    db.User.Add(u);
+                    db.SaveChanges();
+                    return db.User.Where(x=>x.Username == u.Username).FirstOrDefault().Id;
+                }
+                catch
+                {
+                    return -1;
+                }
+            }
+        }
+
         public bool CreateCart(Carts c)
         {
             using (var db = new GoodBurgerEntitiesContext())
@@ -79,6 +96,51 @@ namespace GoodBurger.Services
                 }
             }
         }
+        #endregion
+
+        #region delete
+
+        public bool DeleteBurger(Burgers b)
+        {
+            using (var db = new GoodBurgerEntitiesContext())
+            {
+                try
+                {
+                    db.Burger.Remove(b);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
+        #endregion
+
+        #region update
+
+        public bool UpdateInfoUser(Users user)
+        {
+            using (var db = new GoodBurgerEntitiesContext())
+            {
+                try
+                {
+                    Users u = db.User.Where(x => x.Id == user.Id).FirstOrDefault();
+                    u.Address = user.Address;
+                    u.Password = user.Password;
+                    u.Username = user.Username;
+                    db.SaveChanges();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
         #endregion
     }
 }

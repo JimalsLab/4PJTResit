@@ -23,22 +23,26 @@ namespace GoodBurger.Controllers
             this._httpContextAccessor = httpContextAccessor;
             service = new DataRetrievalService();
             ivm = new IndexViewModel();
-            //if (Request.Cookies["sessionCookie"] == null || Request.Cookies["sessionCookie"][0] != '_')
-            //{
-            CookieOptions session = new CookieOptions
+
+            if (httpContextAccessor.HttpContext.Request.Cookies["sessionCookie"] == null || httpContextAccessor.HttpContext.Request.Cookies["sessionCookie"] == ""|| httpContextAccessor.HttpContext.Request.Cookies["sessionCookie"].Length <= 5 )
             {
-                Expires = DateTime.Now.AddDays(1)
-            };
-            string guid = Guid.NewGuid().ToString();
-            httpContextAccessor.HttpContext.Response.Cookies.Append("sessionCookie", guid, session);
-            //}
-            Carts c = new Carts
-            {
-                Guid = guid
-            };
-            if (service.CreateCart(c)){
-                ivm.Guid = guid;
+                string guid = Guid.NewGuid().ToString();
+                CookieOptions session = new CookieOptions
+                {
+                    Expires = DateTime.Now.AddDays(1)
+                };
+                
+                httpContextAccessor.HttpContext.Response.Cookies.Append("sessionCookie", guid, session);
+                Carts c = new Carts
+                {
+                    Guid = guid
+                };
+                if (service.CreateCart(c))
+                {
+                    ivm.Guid = guid;
+                }
             }
+
         }
 
         public IActionResult Index()

@@ -11,7 +11,7 @@ import { ItemDescription } from './components/ItemDescription'
 export const routes = <Layout>
     <Route exact path='/' component={Home} />
     <Route path='/Cart' component={Cart} />
-    <Route path='/Profile' component={FetchData} />
+    <Route path='/Profile' component={Profile} />
     <Route path='/Items' component={Items} />
     <Route path='/Item/' component={ItemDescription}/>
 </Layout>;

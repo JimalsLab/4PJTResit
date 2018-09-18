@@ -225,3 +225,20 @@ body {
 .coralbuttonsecond:hover {
     color: #a85959;
 }
+
+.topright{
+    position:absolute;
+    right:5px;
+    top:5px;
+    color:white;
+    background-color:red;
+}
+
+.topright:hover{
+    font-size:110%;
+}
+
+.alignright{
+    text-align:right;
+    padding-top:7px;
+}
