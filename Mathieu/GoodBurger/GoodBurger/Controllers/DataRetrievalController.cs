@@ -63,6 +63,38 @@ namespace GoodBurger.Controllers
         }
 
         [HttpGet("[action]")]
+        public UserToken GetUserToken()
+        {
+            UserToken ut = new UserToken
+            {
+                id = -1,
+                name = "",
+                isadmin = -1
+            };
+            string id = _httpContextAccessor.HttpContext.Request.Cookies["userCookie"];
+            if (id == null || id == "")
+            {
+                return ut;
+            }
+            else
+            {
+                Users u = service.GetUsers().Where(x => x.Id == int.Parse(id)).FirstOrDefault();
+                if (u.Name == null || u.Name.Length < 2)
+                {
+                    ut.name = u.Username;
+                }
+                else
+                {
+                    ut.name = u.Name;
+                }
+                ut.id = u.Id;
+                ut.isadmin = u.IsAdmin;
+
+                 return ut;
+            }
+        }
+
+        [HttpGet("[action]")]
         public IActionResult Items(string stock, string itemid, string productnb)
         {
             if (productnb == null) { productnb = "1"; }
@@ -90,19 +122,36 @@ namespace GoodBurger.Controllers
             }
             else
             {
+
                 Burgers b = new Burgers
                 {
                     Name = burger.Name,
                     Price = burger.Price,
                     Children = burger.Children,
                     Components = burger.Components,
-                    IdCart = service.GetCartIdByGuid(Request.Cookies["sessionCookie"]),
+                    
                     Number = int.Parse(productnb),
                     Picture = burger.Picture,
                     Cities = burger.Cities,
                     Description = burger.Description,
                     Type = burger.Type       
                 };
+                string temp = _httpContextAccessor.HttpContext.Request.Cookies["sessionCookie"];
+                if (temp == null || temp == "")
+                {
+
+                    CookieOptions session = new CookieOptions
+                    {
+                        Expires = DateTime.Now.AddDays(1)
+                    };
+                    Carts c = service.GetCartByUserId(GetCurrentUser().Id);
+                    _httpContextAccessor.HttpContext.Response.Cookies.Append("sessionCookie",c.Guid, session);
+                    b.IdCart = c.Id;
+                }
+                else
+                {
+                    b.IdCart = service.GetCartIdByGuid(temp);
+                }
 
                 bool error = service.AddProductToBasket(b);
                 
@@ -208,42 +257,27 @@ namespace GoodBurger.Controllers
         }
 
         [HttpGet("[action]")]
-        public ActionResult Checkout(string id)
+        public ActionResult Checkout()
         {
+            Users u = service.GetUsers().Where(x => x.Id == int.Parse(_httpContextAccessor.HttpContext.Request.Cookies["userCookie"])).FirstOrDefault();
+            Carts c = service.GetCartByUserId(u.Id);
+
             try
             {
-                // create the HTML to PDF converter object
-                HtmlToPdfConverter htmlToPdfConverter = new HtmlToPdfConverter();
-
-                // set license key
-                htmlToPdfConverter.LicenseKey = "4W9+bn19bn5ue2B+bn1/YH98YHd3d3c=";
-
-                // Set an adddional delay in seconds to wait for JavaScript or AJAX calls after page load completed
-                // Set this property to 0 if you don't need to wait for such asynchcronous operations to finish
-                htmlToPdfConverter.ConversionDelay = 2;
-
-                // set PDF page size
-                htmlToPdfConverter.PdfDocumentOptions.PdfPageSize = PdfPageSize.A4;
-
-                // set PDF page orientation
-                htmlToPdfConverter.PdfDocumentOptions.PdfPageOrientation = PdfPageOrientation.Portrait;
-
-                // convert the HTML page from given URL to PDF in a buffer
-                byte[] pdfBytes = htmlToPdfConverter.ConvertUrl("/DataRetrieval/PdfView");
-
-                // write the PDF buffer in output file
-                System.IO.File.WriteAllBytes("EvoHtmlToPdf.pdf", pdfBytes);
-
-                var cd = new System.Net.Mime.ContentDisposition
+                foreach (Burgers b in service.GetItemsInCart(c.Id))
                 {
-                    FileName = "testPDF.pdf",
-                    Inline = false,
-                };
-                return File(pdfBytes, "application/pdf");
+                    Burgers original = service.GetProducts().Where(x => x.IdCart == -1 && x.Name == b.Name).FirstOrDefault();
+                    original.Number = original.Number - b.Number;
+                    service.UpdateBurgerInfo(original);
+                    service.DeleteBurger(b);
+                }
+                //////////AJOUTER MESSAGE REUSSI A CHECKOUT ET INFOS DE CHECKOUT
+
+                
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(String.Format("Error: {0}", ex.Message));
+               ////////////////////////////////////////////////SUITE ICI
             }
             return View();
         }
@@ -310,6 +344,70 @@ namespace GoodBurger.Controllers
                 
             }
             return View("UserInfo",sivm);
+        }
+
+        [HttpGet("[action]")]
+        public ActionResult Login(string username, string password)
+        {
+            DisconnectionInfoViewModel divm = new DisconnectionInfoViewModel();
+            Users u = service.GetUsers().Where(x => x.Username == username).FirstOrDefault();
+            if (u == null)
+            {
+                divm.message = "Wrong Username";
+                divm.Colorstate = "red";
+            }
+            else
+            {
+                if (password == u.Password)
+                {
+                    divm.message = "Successfully connected";
+                    divm.Colorstate = "green";
+
+                    CookieOptions session = new CookieOptions
+                    {
+                        Expires = DateTime.Now.AddDays(1)
+                    };
+
+                    _httpContextAccessor.HttpContext.Response.Cookies.Append("userCookie", u.Id.ToString(), session);
+
+                }
+                else
+                {
+                    divm.message = "Wrong Password";
+                    divm.Colorstate = "red";
+                }
+            }
+
+            return View("DisconnectionInfo", divm);
+        }
+
+        [HttpGet("[action]")]
+        public ActionResult Disconnect()
+        {
+            DisconnectionInfoViewModel divm = new DisconnectionInfoViewModel();
+            try
+            {
+                foreach (var cookie in _httpContextAccessor.HttpContext.Request.Cookies.Keys)
+                {
+                    _httpContextAccessor.HttpContext.Response.Cookies.Delete(cookie);
+                }
+                divm.message = "You were succesfully disconnected";
+                divm.Colorstate = "green";
+            }
+            catch (Exception e)
+            {
+                divm.message = "Oops, couldn't disconnect you ! please try again later";
+                divm.Colorstate = "red";
+            }
+
+            return View("DisconnectionInfo",divm);
+        }
+
+        public class UserToken
+        {
+            public string name { get; set; }
+            public int id { get; set; }
+            public int isadmin { get; set; }
         }
     }
 }

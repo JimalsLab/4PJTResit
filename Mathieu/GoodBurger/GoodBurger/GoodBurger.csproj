@@ -24,9 +24,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\components\AdminPanel.tsx" />
     <None Remove="ClientApp\components\Cart.tsx" />
     <None Remove="ClientApp\components\ItemDescription.tsx" />
     <None Remove="ClientApp\components\Items.tsx" />
+    <None Remove="ClientApp\components\NavInfo.tsx" />
     <None Remove="ClientApp\components\Profile.tsx" />
   </ItemGroup>
 
@@ -50,9 +52,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\components\AdminPanel.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Cart.tsx" />
     <TypeScriptCompile Include="ClientApp\components\ItemDescription.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Items.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\NavInfo.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Profile.tsx" />
   </ItemGroup>
 

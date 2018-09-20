@@ -5,8 +5,9 @@ import { Home } from './components/Home';
 import { Cart } from './components/Cart';
 import { Profile } from './components/Profile';
 import { Items } from './components/Items';
-import { FetchData } from './components/Templates/FetchData'
-import { ItemDescription } from './components/ItemDescription'
+import { FetchData } from './components/Templates/FetchData';
+import { ItemDescription } from './components/ItemDescription';
+import { NavInfo } from './components/NavInfo';
 
 export const routes = <Layout>
     <Route exact path='/' component={Home} />

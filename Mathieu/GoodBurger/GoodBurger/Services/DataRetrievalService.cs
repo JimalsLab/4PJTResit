@@ -43,6 +43,14 @@ namespace GoodBurger.Services
             }
         }
 
+        public Carts GetCartByUserId(int id)
+        {
+            using (var db = new GoodBurgerEntitiesContext())
+            {
+                return db.Cart.Where(cart => cart.IdUser == id).LastOrDefault();
+            }
+        }
+
         #endregion
 
         #region post
@@ -131,6 +139,30 @@ namespace GoodBurger.Services
                     u.Address = user.Address;
                     u.Password = user.Password;
                     u.Username = user.Username;
+                    db.SaveChanges();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool UpdateBurgerInfo(Burgers burger)
+        {
+            using (var db = new GoodBurgerEntitiesContext())
+            {
+                try
+                {
+                    Burgers b = db.Burger.Where(x => x.Id == burger.Id).FirstOrDefault();
+                    b.Children = burger.Children;
+                    b.Cities = burger.Cities;
+                    b.Components = burger.Components;
+                    b.Description = burger.Description;
+                    b.Number = burger.Number;
+                    b.Picture = burger.Picture;
+                    b.Price = burger.Price;
                     db.SaveChanges();
                     return true;
                 }

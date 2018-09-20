@@ -242,3 +242,22 @@ body {
     text-align:right;
     padding-top:7px;
 }
+
+.userinfo{
+    margin-top:7px;
+    margin-right:7px;
+}
+
+.spaceup{
+    margin-top:10px;
+}
+
+.adminbutton{
+    margin-right:10px;
+    color:lightcoral;
+}
+
+.adminbutton:hover {
+    color: darkred;
+    text-decoration: none;
+}

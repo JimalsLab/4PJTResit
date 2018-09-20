@@ -54,7 +54,7 @@ namespace GoodBurger.Context
     public class Carts
     {
         public int Id { get; set; }
-        public string IdUser { get; set; }
+        public int IdUser { get; set; }
         public string Guid { get; set; }
     }
 

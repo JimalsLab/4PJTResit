@@ -23,7 +23,7 @@ export class Cart extends React.Component<RouteComponentProps<{}>, ProductData>
     public render() {
 
         let itemlist = this.state.loading
-            ? <p><em>Loading...</em></p>
+            ? <p><em>No Item in Cart</em></p>
             : Cart.renderTable(this.state.data);
 
 
@@ -86,7 +86,6 @@ export class Cart extends React.Component<RouteComponentProps<{}>, ProductData>
                 <div className="col-md-3">
                     <br />
                     <form id="Checkout" action="/DataRetrieval/Checkout">
-                        <input id="id" name="id" value={stuff[0].idcart} hidden />
                         <button className="btn btn-lg btn-danger display_block" type="submit"><span className='glyphicon glyphicon-shopping-cart'></span> Checkout</button>
                     </form>
                 </div>

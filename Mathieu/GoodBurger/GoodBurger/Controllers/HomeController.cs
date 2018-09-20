@@ -23,26 +23,37 @@ namespace GoodBurger.Controllers
             this._httpContextAccessor = httpContextAccessor;
             service = new DataRetrievalService();
             ivm = new IndexViewModel();
-
-            if (httpContextAccessor.HttpContext.Request.Cookies["sessionCookie"] == null || httpContextAccessor.HttpContext.Request.Cookies["sessionCookie"] == ""|| httpContextAccessor.HttpContext.Request.Cookies["sessionCookie"].Length <= 5 )
+            string userid = httpContextAccessor.HttpContext.Request.Cookies["userCookie"];
+            if (userid == null || userid == "")
             {
-                string guid = Guid.NewGuid().ToString();
-                CookieOptions session = new CookieOptions
+                if (httpContextAccessor.HttpContext.Request.Cookies["sessionCookie"] == null || httpContextAccessor.HttpContext.Request.Cookies["sessionCookie"] == "" || httpContextAccessor.HttpContext.Request.Cookies["sessionCookie"].Length <= 5)
                 {
-                    Expires = DateTime.Now.AddDays(1)
-                };
-                
-                httpContextAccessor.HttpContext.Response.Cookies.Append("sessionCookie", guid, session);
-                Carts c = new Carts
+                    string guid = Guid.NewGuid().ToString();
+                    CookieOptions session = new CookieOptions
+                    {
+                        Expires = DateTime.Now.AddDays(1)
+                    };
+
+                    httpContextAccessor.HttpContext.Response.Cookies.Append("sessionCookie", guid, session);
+                    Carts c = new Carts
+                    {
+                        Guid = guid
+                    };
+                    if (service.CreateCart(c))
+                    {
+                        ivm.Guid = guid;
+                    }
+                }
+                else
                 {
-                    Guid = guid
-                };
-                if (service.CreateCart(c))
-                {
-                    ivm.Guid = guid;
+                    CookieOptions session = new CookieOptions
+                    {
+                        Expires = DateTime.Now.AddDays(1)
+                    };
+
+                    httpContextAccessor.HttpContext.Response.Cookies.Append("sessionCookie", service.GetCartByUserId(int.Parse(userid)).Guid, session);
                 }
             }
-
         }
 
         public IActionResult Index()
