@@ -77,8 +77,8 @@ export class NavInfo extends React.Component<{}, ProductData>{
             </form>;
 
         return <div>
-            <button className="btn btn-danger userinfo" data-toggle="modal" data-target={"#" + token.id.toString()}><span className="glyphicon glyphicon-user">&nbsp;</span>{token.name}</button>
-            <div className="modal fade" id={token.id.toString()} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <button className="btn btn-danger userinfo" data-toggle="modal" data-target={"#nav" + token.id.toString()}><span className="glyphicon glyphicon-user">&nbsp;</span>{token.name}</button>
+            <div className="modal fade" id={"nav"+token.id.toString()} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">

@@ -1,7 +1,42 @@
-﻿
-@{
-    ViewData["Title"] = "Checkout";
-}
+﻿@model GoodBurger.ViewModels.CheckoutViewModel
+<!-- Button trigger modal -->
+<button style="color:white;background-color:white;border-color:white;" id="salut" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+    Launch demo modal
+</button>
 
-<h2>Checkout</h2>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif" class="modal-title @Model.Colorstate" id="exampleModalCenterTitle">@Model.message</h2>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    @{
+                        foreach (var item in Model.cartItems)
+                        {
+                            <li>@item.Name x @item.Number</li>
+                        }
+                      }
+                </ul>
+
+
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-secondary coralbuttonsecond" href="/PdfView">Print Receipt</a>
+                <a class="btn btn-primary coralbutton" href="/">Ok</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/dist/main.js" asp-append-version="true"></script>
+    <script src="~/Scripts/stickynav.js" asp-append-version="true"></script>
+    <script src="~/Scripts/addtocart.js" asp-append-version="true"></script>
+    <script src="~/Scripts/modal.js" asp-append-version="true"></script>
+}
 

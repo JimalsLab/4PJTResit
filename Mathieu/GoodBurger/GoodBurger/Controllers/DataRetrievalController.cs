@@ -62,6 +62,11 @@ namespace GoodBurger.Controllers
             
         }
 
+        public AdminPanelViewModel GetAdminPanelInfo()
+        {
+            return null;////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        }
+
         [HttpGet("[action]")]
         public UserToken GetUserToken()
         {
@@ -261,25 +266,31 @@ namespace GoodBurger.Controllers
         {
             Users u = service.GetUsers().Where(x => x.Id == int.Parse(_httpContextAccessor.HttpContext.Request.Cookies["userCookie"])).FirstOrDefault();
             Carts c = service.GetCartByUserId(u.Id);
+            List<Burgers> cartItems = service.GetItemsInCart(c.Id);
+
+            CheckoutViewModel cvm = new CheckoutViewModel();
 
             try
             {
-                foreach (Burgers b in service.GetItemsInCart(c.Id))
+                foreach (Burgers b in cartItems)
                 {
                     Burgers original = service.GetProducts().Where(x => x.IdCart == -1 && x.Name == b.Name).FirstOrDefault();
                     original.Number = original.Number - b.Number;
                     service.UpdateBurgerInfo(original);
                     service.DeleteBurger(b);
                 }
-                //////////AJOUTER MESSAGE REUSSI A CHECKOUT ET INFOS DE CHECKOUT
 
+                cvm.message = "Thanks for buying at GoodBurger !";
+                cvm.Colorstate = "green";
+                cvm.cartItems = cartItems;
                 
             }
             catch
             {
-               ////////////////////////////////////////////////SUITE ICI
+                cvm.message = "Oops ! Something went wrong, try later";
+                cvm.Colorstate = "red";
             }
-            return View();
+            return View(cvm);
         }
 
         [HttpGet("[action]")]
