@@ -38,11 +38,22 @@
                     @{
                         if (Model != null && Model.user.Username != null)
                         {
-                            <li class="navbar-right"><a class="login_button" href="/Home/Disconnect"><span class="glyphicon glyphicon-user aquamarine"></span> Logout</a></li>
+
+                            <li class="navbar-right"><a class="login_button" href="/Home/Disconnect"><span class="glyphicon glyphicon-user red"></span> Logout</a></li>
+
+                            @if (Model.user.AdminIndex > -1)
+                            {
+                                <li class="navbar-right adminpanel_button "><a href="/Home/AdminPanel"><span class="glyphicon glyphicon-tasks"></span> Admin Panel</a></li>
+                                <li class="navbar-right login_button">Logged as @Model.user.Name</li>
+                            }
+                            else
+                            {
+                                <li class="navbar-right login_button">Logged as @Model.user.Name</li>
+                            }
                         }
                         else
                         {
-                            <li class="navbar-right"><button class="login_button" data-toggle="modal" data-target="#exampleModalCenter"><span class="glyphicon glyphicon-user aquamarine"></span> Login</button></li>
+                            <li class="navbar-right"><button class="login_button" data-toggle="modal" data-target="#exampleModalCenter"><span class="glyphicon glyphicon-user red"></span> Login</button></li>
                         }
                     }
 

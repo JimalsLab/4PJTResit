@@ -55,6 +55,24 @@
     color:aquamarine;
 }
 
+.red{
+    color:red;
+}
+
 .form_label{
     padding-top:7px;
+}
+
+.noshape{
+    border:none;
+    background:none;
+}
+
+.noshape:hover {
+    -webkit-print-color-adjust: exact;
+    filter:contrast(135%);
+}
+
+.block{
+    display:block;
 }

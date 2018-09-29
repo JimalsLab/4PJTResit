@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace GoodBurger.DAL
 {
-    public class Context :  DbContext
+    public class Context : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
+        public Context(DbContextOptions<Context> options) : base(options)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=GoodBurgerDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+
         }
 
         public DbSet<Users> users { get; set; }
         public DbSet<Products> products { get; set; }
+        public DbSet<Sales> sales { get; set; }
 
-        
     }
 
     public class Users
@@ -40,5 +41,12 @@ namespace GoodBurger.DAL
         public string Composition { get; set; }
         public string Cities { get; set; }
 
+    }
+
+    public class Sales
+    {
+        public int? Id { get; set; }
+        public int? Price { get; set; }
+        public DateTime Date { get; set; }
     }
 }

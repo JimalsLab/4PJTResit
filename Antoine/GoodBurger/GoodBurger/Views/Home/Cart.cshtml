@@ -1,26 +1,20 @@
-﻿@model  GoodBurger.ViewModels.IndexViewModel
-
+﻿@model GoodBurger.ViewModels.IndexViewModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Cart";
 }
 
-<br/>
-<br/>
 <br />
-<div>
-    <div class="row text-center">
-        <img src="~/images/good_burger.png" />
-    </div>
-    <hr />
-    <div class="row text-center">
+<br />
+<br />
+<div class="row text-center">
+    <div class="col-md-7">
         @{
-            foreach (var item in Model.products)
+            foreach (var item in Model.CartItems)
             {
 
-                <div class="col-md-3" style="height:400px">
+                <div class="col-md-6" style="height:280px">
                     <button data-toggle="modal" data-target="#@item.Id" id="@item.Name" class="noshape" type="button"><img src="~/images/@{@item.Id}.PNG" /></button>
-                    <h3>@item.Name</h3>
-                    <p>@item.Composition</p>
+                    <h3>@item.Name x @item.Number</h3>
                 </div>
 
                 <div class="modal fade" id="@item.Id" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -68,12 +62,24 @@
                                     </div>
                                 </form>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
             }
         }
     </div>
-    <div class="row"></div>
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-3 text-center">
+        <hr />
+        <p>proceed to payment</p>
+        <form action=" /Home/Checkout">
+            <button style="margin-top:10px;" type="submit" class="btn  btn-lg btn-danger">Checkout</button>
+        </form>
+        <hr />
+        <p>get your items delivered</p>
+        <hr />
+        <p>enjoy !</p>
+    </div>
 </div>

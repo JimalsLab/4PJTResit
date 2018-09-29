@@ -1,0 +1,62 @@
+﻿@model GoodBurger.ViewModels.IndexViewModel
+
+@{
+    ViewData["Title"] = "ProductAdministration";
+}
+
+<br />
+<br />
+<br />
+
+<h2>Product Administration</h2>
+
+<p>
+    <a asp-action="CreateProduct">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Stock
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Cities
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.products) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Composition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cities)
+            </td>
+            <td>
+                <a asp-action="EditProduct" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="DeleteProduct" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

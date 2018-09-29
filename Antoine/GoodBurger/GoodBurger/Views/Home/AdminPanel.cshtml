@@ -1,0 +1,39 @@
+﻿@model GoodBurger.ViewModels.IndexViewModel
+
+@{
+    ViewData["Title"] = "AdminPanel";
+}
+
+<br />
+<br />
+<br />
+<div class="row">
+    <div class="col-md-10">
+        <div class="col-md-2">
+            <form action="/Home/UserAdministration"><button type="submit" class="btn btn-lg btn-danger btn-group">Manage Users</button></form>
+        </div>
+        <div class="col-md-2">
+            <form action="/Home/ProductAdministration"><button type="submit" class="btn btn-lg btn-danger btn-group">Manage Products</button></form>
+        </div>
+    </div>
+    <div class="col-md-10">
+        <h3>Last Sales</h3>
+        <div class="row">
+            @foreach (var item in Model.LastSales)
+            {
+                var size = 10 * item.Price;
+                <div class="row">
+                    <div class="col-md-2">
+                        @item.Date
+                    </div>
+                    <div class="col-md-2">
+                        @item.Price $
+                    </div>
+                    <div style="width:@{@size}px; height:18px; margin-left:250px; background-color:lightgray;"></div>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+

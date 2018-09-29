@@ -1,0 +1,45 @@
+﻿@model GoodBurger.ViewModels.IndexViewModel
+
+@{
+    ViewData["Title"] = "EditProduct";
+}
+
+<h2>EditProduct</h2>
+
+<h4>Products</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditProductValid">
+            <input type="hidden" name="@Model.product.Id" value="@Model.product.Id"/>
+            <div class="form-group">
+                <label asp-for="@Model.product.Name" class="control-label"></label>
+                <input name="@Model.product.Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.product.Price" class="control-label"></label>
+                <input name="@Model.product.Price" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.product.Picture" class="control-label"></label>
+                <input name="@Model.product.Picture" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.product.Number" class="control-label"></label>
+                <input name="@Model.product.Number" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.product.Composition" class="control-label"></label>
+                <input name="@Model.product.Composition" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.product.Cities" class="control-label"></label>
+                <input name="@Model.product.Cities" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+

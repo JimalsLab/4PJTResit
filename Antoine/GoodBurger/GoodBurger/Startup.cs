@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 namespace GoodBurger
 {
@@ -23,8 +24,11 @@ namespace GoodBurger
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddSingleton<Context>();
-            services.AddSingleton<UserService>();
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=GoodBurgerDB;Trusted_Connection=True;ConnectRetryCount=0";
+            services.AddDbContext<Context>
+        (options => options.UseSqlServer(connection));
+            services.AddScoped<UserService>();
+            services.AddScoped<ProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
